@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SÖT｜Berry Frappuccino 莓果星冰樂</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;900&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+:root{--bg:#faf5ff;--fg:#2e1065;--muted:#6d28d9;--glass:rgba(255,255,255,.55);--edge:rgba(139,92,246,.5);--ghost:rgba(139,92,246,.12);--panel:rgba(255,255,255,.65);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0618;--fg:#f5f3ff;--muted:#c4b5fd;--glass:rgba(255,255,255,.08);--edge:rgba(196,181,253,.6);--ghost:rgba(236,72,153,.14);--panel:rgba(30,16,60,.6)}}
+:root[data-theme="dark"]{--bg:#0b0618;--fg:#f5f3ff;--muted:#c4b5fd;--glass:rgba(255,255,255,.08);--edge:rgba(196,181,253,.6);--ghost:rgba(236,72,153,.14);--panel:rgba(30,16,60,.6)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:'Noto Sans TC','Space Grotesk',system-ui,sans-serif;overflow-x:hidden;min-height:100vh}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;animation:drift 14s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(40px,-50px) scale(1.15)}}
+.ghost{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--ghost);letter-spacing:-.04em;line-height:.85;white-space:nowrap;user-select:none}
+.grad{background:linear-gradient(90deg,#8B5CF6,#EC4899);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fly-up{opacity:0;transform:translateY(40px);animation:flyUp 1s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes flyUp{to{opacity:1;transform:none}}
+.cup-in{opacity:0;animation:cupIn 1.4s cubic-bezier(.2,1.1,.3,1) .2s forwards}
+@keyframes cupIn{0%{opacity:0;transform:translateY(-160px) scale(.5) rotate(-12deg)}100%{opacity:1;transform:none}}
+.float{animation:float var(--d,5s) ease-in-out var(--l,0s) infinite alternate}
+@keyframes float{from{transform:translateY(-10px) rotate(-6deg)}to{transform:translateY(12px) rotate(8deg)}}
+.pop{opacity:0;animation:pop .8s cubic-bezier(.3,1.5,.5,1) 1.6s forwards}
+@keyframes pop{from{opacity:0;scale:.2}to{opacity:1;scale:1}}
+/* 3D rig */
+#fit{position:absolute;left:0;top:0;width:260px;height:460px;transform-origin:0 0}
+#cam{width:260px;height:460px;perspective:1300px}
+#scene{position:absolute;inset:0;transform-origin:130px 250px;transform-style:preserve-3d;transition:transform 1.3s cubic-bezier(.22,1,.36,1)}
+.p3,#spin,#tilt3d{position:absolute;left:0;top:0;width:260px;height:460px;transform-style:preserve-3d}
+#tilt3d{transform-origin:130px 432px}
+#spin{transform-origin:130px 250px}
+.st{position:absolute;top:50px;height:383px}
+.st canvas{width:100%;height:100%;display:block}
+.disc{position:absolute;border-radius:50%}
+.bbpos{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d}
+.bb{position:absolute;left:0;top:0;transform-style:preserve-3d;transform:rotateY(var(--by,0deg)) rotateX(var(--bx,0deg))}
+.ch{position:absolute;left:130px;top:300px;margin:-14px 0 0 -16px;width:32px;text-align:center;font:700 22px/28px 'Space Grotesk',sans-serif;color:#fff}
+.cube{position:absolute;left:0;top:0;transform-style:preserve-3d;--s:50px;--h:calc(var(--s)/2);width:var(--s);height:var(--s);margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2)}
+.f{position:absolute;inset:0;border:1.5px solid rgba(255,255,255,.75);border-radius:7px;background:linear-gradient(135deg,rgba(255,255,255,.42),rgba(216,200,255,.14))}
+.f:nth-child(1){transform:translateZ(var(--h))}.f:nth-child(2){transform:rotateY(180deg) translateZ(var(--h))}
+.f:nth-child(3){transform:rotateY(90deg) translateZ(var(--h))}.f:nth-child(4){transform:rotateY(-90deg) translateZ(var(--h))}
+.f:nth-child(5){transform:rotateX(90deg) translateZ(var(--h))}.f:nth-child(6){transform:rotateX(-90deg) translateZ(var(--h))}
+.cream{transform-origin:50% 100%;animation:grow 1s cubic-bezier(.3,1.6,.5,1) 1.2s backwards}
+@keyframes grow{from{transform:scale(.2,0);opacity:0}}
+.jig{transform-box:fill-box;transform-origin:50% 100%;animation:jig 3.2s ease-in-out infinite alternate}
+@keyframes jig{from{transform:scale(1,1) skewX(-1.2deg)}to{transform:scale(1.02,.98) skewX(1.2deg)}}
+.flow{stroke-dasharray:26 10;animation:flow 5s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-72}}
+.nut{transform-box:fill-box;transform-origin:center}
+@keyframes drop{from{transform:translateY(-130px) rotate(220deg);opacity:0}}
+.btn{background:linear-gradient(90deg,#8B5CF6,#EC4899);box-shadow:0 10px 30px -8px #EC4899;transition:transform .25s}
+.btn:hover{transform:translateY(-2px) scale(1.04)}
+.vb{display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 9px;border-radius:12px;font-size:12px;font-weight:500;line-height:1.15;color:var(--fg);background:transparent;border:0;cursor:pointer;transition:background .3s,color .3s,transform .2s}
+.vb small{font:500 9px 'Space Grotesk',sans-serif;letter-spacing:.06em;opacity:.7}
+.vb:hover{transform:translateY(-2px)}
+.vb.on{background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff}
+@media (prefers-reduced-motion:reduce){.blob,.float,.jig,.flow{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<radialGradient id="bg" cx=".35" cy=".3"><stop offset="0" stop-color="#F9A8D4"/><stop offset=".6" stop-color="#EC4899"/><stop offset="1" stop-color="#8B5CF6"/></radialGradient>
+<linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fbd5ea"/></linearGradient>
+<symbol id="berry" viewBox="0 0 60 60"><circle cx="30" cy="34" r="20" fill="url(#bg)"/><circle cx="23" cy="27" r="5" fill="#fff" opacity=".55"/><path d="M30 14c-6-4-10-2-12 0 4 0 8 1 12 0zM30 14c6-4 10-2 12 0-4 0-8 1-12 0z" fill="#34D399"/></symbol>
+</defs></svg>
+<div id="scroller" style="height:300vh">
+<div class="sticky top-0 h-screen flex flex-col overflow-hidden">
+  <div class="blob" style="width:42vmax;height:42vmax;background:#8B5CF6;left:-12vmax;top:-10vmax"></div>
+  <div class="blob" style="width:36vmax;height:36vmax;background:#EC4899;right:-10vmax;bottom:-8vmax;animation-delay:-5s"></div>
+  <header class="relative z-10 flex items-center justify-between px-6 md:px-12 py-5 fly-up">
+    <div class="font-bold text-xl tracking-tight" style="font-family:'Space Grotesk'">S<span class="grad">Ö</span>T</div>
+    <div class="text-xs md:text-sm tracking-[.3em] uppercase" style="color:var(--muted)">New Drop</div>
+  </header>
+  <main class="relative z-10 flex-1 min-h-0 flex flex-col items-center justify-center px-4 pb-20">
+    <div class="ghost absolute top-[14%] md:top-[10%] left-1/2 -translate-x-1/2 text-[26vw] md:text-[18vw] fly-up" style="animation-delay:.1s" aria-hidden="true">BERRY</div>
+
+    <div id="stage" class="relative" style="--w:max(150px,min(72vw,300px,calc((100svh - 400px)/2.2)));width:var(--w);margin-top:calc(var(--w)*.42);aspect-ratio:260/460">
+     <div class="cup-in absolute inset-0">
+      <div id="fit"><div id="cam"><div id="scene" style="transform:rotateX(0deg) rotateY(0deg) scale(1)"><div id="spin">
+        <!-- floating berries at different depths -->
+        <div class="bbpos" style="transform:translate3d(250px,110px,90px)"><div class="bb"><svg class="float pop" style="position:absolute;left:-28px;top:-28px;--d:3.6s" width="56" height="56"><use href="#berry"/></svg></div></div>
+        <div class="bbpos" style="transform:translate3d(12px,330px,-90px)"><div class="bb"><svg class="float pop" style="position:absolute;left:-23px;top:-23px;--d:4.8s;--l:-1s" width="46" height="46"><use href="#berry"/></svg></div></div>
+        <div class="bbpos" style="transform:translate3d(232px,300px,-130px)"><div class="bb"><svg class="float pop" style="position:absolute;left:-19px;top:-19px;--d:4.1s;--l:-2s" width="38" height="38"><use href="#berry"/></svg></div></div>
+        <div class="bbpos" style="transform:translate3d(20px,95px,130px)"><div class="bb"><svg class="float pop" style="position:absolute;left:-22px;top:-22px;--d:5.2s;--l:-.5s" width="44" height="44"><use href="#berry"/></svg></div></div>
+
+        <div id="tilt3d">
+          <div class="p3" id="liq"></div>
+          <div class="disc" id="surf" style="left:22px;top:-58px;width:216px;height:216px;background:radial-gradient(circle at 38% 34%,#F9A8D4,#EC4899 55%,#B04FD9);opacity:.85;transform:rotateX(90deg)"></div>
+          <div class="disc" style="left:48px;top:350px;width:164px;height:164px;background:rgba(139,92,246,.4);transform:rotateX(90deg)"></div>
+          <div class="p3" id="ice"></div>
+          <div class="p3" id="beltg"></div>
+          <div class="p3" id="glass"></div>
+          <div class="disc" style="left:22px;top:-58px;width:216px;height:216px;border:2.5px solid var(--edge);transform:rotateX(90deg)"></div>
+          <!-- straw + cream billboard -->
+          <div class="bbpos" style="transform:translate3d(130px,50px,0)"><div class="bb">
+            <svg class="cream" style="position:absolute;left:-130px;top:-148px;overflow:visible" width="260" height="150" viewBox="0 0 260 150">
+              <path d="M118 -60 L130 -60 L201 234 L189 234Z" fill="#EC4899" opacity=".92"/><path d="M118 -60 L122 -60 L193 234 L189 234Z" fill="#fff" opacity=".3"/>
+              <g class="jig">
+                <g fill="url(#cg)" stroke="#f1b3d3" stroke-width="1.5" stroke-linejoin="round">
+                  <path d="M16 138 Q12 112 52 108 H208 Q248 112 244 138 Q242 156 208 152 H52 Q18 156 16 138Z"/>
+                  <path d="M36 106 Q32 80 70 76 H190 Q228 80 224 106 Q222 122 190 118 H70 Q38 122 36 106Z"/>
+                  <path d="M62 74 Q58 50 90 46 H170 Q202 50 198 74 Q196 90 170 86 H90 Q64 90 62 74Z"/>
+                  <path d="M90 44 Q88 26 112 22 H148 Q172 26 170 44 Q168 56 148 54 H112 Q92 56 90 44Z"/>
+                  <path d="M104 26 Q110 8 134 -2 Q128 10 144 16 Q158 22 154 28 Z"/>
+                </g>
+                <path class="flow" d="M40 132 Q100 146 130 130 T222 134" fill="none" stroke="#EC4899" stroke-width="5" stroke-linecap="round" opacity=".85"/>
+                <path class="flow" style="animation-duration:7s" d="M58 100 Q118 112 156 98 T206 102" fill="none" stroke="#8B5CF6" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+                <g stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".95" fill="none"><path d="M34 118 Q36 112 48 111"/><path d="M56 90 Q60 82 74 81"/><path d="M82 62 Q86 54 98 53"/></g>
+                <g id="nuts"></g>
+              </g>
+            </svg>
+          </div></div>
+        </div>
+      </div></div></div></div>
+      <div class="absolute left-1/2 -translate-x-1/2 -bottom-3 w-3/4 h-5 rounded-full blur-xl" style="background:#8B5CF6;opacity:.5"></div>
+     </div>
+    </div>
+
+    <div class="text-center mt-10 fly-up" style="animation-delay:.6s">
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight"><span class="block text-sm md:text-base tracking-[.35em] uppercase font-medium mb-2" style="color:var(--muted);font-family:'Space Grotesk'">Berry Frappuccino</span><span class="grad">莓果</span>星冰樂</h1>
+      <p class="mt-3 text-sm md:text-base font-light max-w-md mx-auto" style="color:var(--muted)">莓果果醬與綿密冰沙層層交疊，頂上是滿滿鮮奶油與核桃碎，一口冰涼點亮整個午後。</p>
+      <div class="mt-6 flex items-center justify-center gap-4"><button class="btn text-white font-medium rounded-full px-8 py-3">立即品嚐</button><span class="text-sm opacity-70" style="font-family:'Space Grotesk'">NT$ 85</span></div>
+      <p class="mt-4 text-xs opacity-60">切換視角 · 向下捲動讓杯子見底 · 水位 <span id="pct" class="font-bold">100</span>%</p>
+    </div>
+  </main>
+
+  <nav class="fixed z-20 flex gap-1 p-1 rounded-2xl backdrop-blur-md left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-6" style="bottom:calc(env(safe-area-inset-bottom,0px) + 14px);background:var(--panel);border:1px solid var(--edge)" aria-label="視角切換">
+    <button class="vb on" data-view="front">正視<small>FRONT</small></button>
+    <button class="vb" data-view="top">俯瞰<small>TOP</small></button>
+    <button class="vb" data-view="angle">側仰角<small>ANGLE</small></button>
+    <button class="vb" data-view="orbit">環繞<small>ORBIT</small></button>
+  </nav>
+</div></div>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},NS='http://www.w3.org/2000/svg',TAU=6.2832,D=57.296;
+var stage=$('stage'),fit=$('fit'),scene=$('scene'),spin=$('spin'),tiltEl=$('tilt3d'),glassG=$('glass'),liqG=$('liq'),beltG=$('beltg'),iceG=$('ice'),surf=$('surf'),pctEl=$('pct');
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function fitIt(){fit.style.transform='scale('+stage.clientWidth/260+')';}fitIt();addEventListener('resize',fitIt);
+function Rr(y){return 108-26*(y-50)/370;}
+function el(tag,cls,par,st){var e=document.createElement(tag);if(cls)e.className=cls;if(st)e.style.cssText=st;par.appendChild(e);return e;}
+
+/* walnut crumbs */
+(function(){var g=$('nuts'),zs=[[30,238,112,148,34],[50,214,80,114,26],[74,186,50,82,20],[98,162,26,52,10],[112,150,0,24,5]],cols=['#8B5A2B','#A9744A','#6B4423','#C99A66','#5A3A1E'];
+zs.forEach(function(z){for(var i=0;i<z[4];i++){var a=Math.random()*TAU,rr=Math.sqrt(Math.random()),cx=(z[0]+z[1])/2+Math.cos(a)*rr*(z[1]-z[0])/2*.9,cy=(z[2]+z[3])/2+Math.sin(a)*rr*(z[3]-z[2])/2*.8,r=2+Math.random()*3.2,p=[];
+for(var k=0;k<5;k++){var an=k/5*TAU,rad=r*(.65+Math.random()*.5);p.push((cx+Math.cos(an)*rad).toFixed(1)+','+(cy+Math.sin(an)*rad).toFixed(1));}
+var e=document.createElementNS(NS,'polygon');e.setAttribute('points',p.join(' '));e.setAttribute('fill',cols[Math.floor(Math.random()*5)]);e.setAttribute('class','nut');
+e.style.animation='drop .7s cubic-bezier(.4,0,.8,1) '+(2+Math.random()*1.4).toFixed(2)+'s backwards';g.appendChild(e);}});})();
+
+/* cylinder walls: glass strips + liquid strips */
+var N=32,rt=TAU/2*108/N*2/2*2/2+1;rt=Math.PI*2*108/N+1;var rb=Math.PI*2*82/N+1,clip='polygon(0 0,100% 0,'+(1+rb/rt)*50+'% 100%,'+(1-rb/rt)*50+'% 100%)';
+var strips=[],lc=[],lx=[];
+for(var i=0;i<N;i++){var a=i*360/N;
+  var li=el('div','st',liqG,'left:'+(130-rt*.484)+'px;width:'+rt*.968+'px;clip-path:'+clip+';transform:rotateY('+a+'deg) translateZ(91.6px) rotateX(-4deg)');
+  var cv=el('canvas','',li);cv.width=40;cv.height=770;var cx=cv.getContext('2d');cx.globalCompositeOperation='copy';lc.push(cv);lx.push(cx);
+  strips.push(el('div','st',glassG,'left:'+(130-rt/2)+'px;width:'+rt+'px;clip-path:'+clip+';transform:rotateY('+a+'deg) translateZ(94.6px) rotateX(-4deg)'));}
+var tex=document.createElement('canvas');tex.width=1280;tex.height=770;var tc=tex.getContext('2d'),TW=640,TH=385;
+
+/* brand belt letters on the cylinder */
+var txt='SÖT • SÖT • SÖT • SÖT • ',letters=[];
+for(var b=0;b<txt.length;b++){if(txt[b]===' ')continue;var l=el('div','ch',beltG);l.textContent=txt[b];letters.push({e:l,i:b});}
+
+/* 3D ice cubes */
+var ice=[{x:-28,z:10,off:-6,s:50,ph:0},{x:30,z:-14,off:-10,s:54,ph:1.7},{x:0,z:32,off:36,s:56,ph:3},{x:-10,z:-30,off:54,s:48,ph:4.4},{x:32,z:26,off:80,s:52,ph:5.6}];
+ice.forEach(function(c){var e=el('div','cube',iceG,'--s:'+c.s+'px');for(var k=0;k<6;k++)el('div','f',e);c.e=e;});
+
+var bub=[];function mkb(init){return{x:8+Math.random()*(TW-16),y:init?Math.random()*TH:TH+10,r:1.5+Math.random()*4.5,v:.25+Math.random()*.7,ph:Math.random()*6,w:.3+Math.random()*.8};}
+for(var q=0;q<34;q++)bub.push(mkb(true));
+
+var LEVEL=120,tLevel=120,LF=120,LE=395,kick=0,lastPc=-1,t=0,amp=7,tAmp=7,speed=1,tSpeed=1,tilt=0,tTilt=0,hov=false,spinA=0,orbit=false,rot=0,curW=.8,glowK=0,lastTs=0;
+
+function wv(Lt,x,tt,a,ph){return Lt+Math.sin(x*TAU*3/TW+tt+ph)*a+Math.sin(x*TAU*5/TW-tt*1.3+ph)*a*.5;}
+
+function frame(ts){
+  var dt=Math.min(.05,(ts-lastTs)/1000||.016);lastTs=ts;
+  kick*=.93;LEVEL+=(tLevel-LEVEL)*.07;
+  speed+=(tSpeed+kick-speed)*.06;amp+=(tAmp+kick*3-amp)*.06;tilt+=(tTilt-tilt)*.08;
+  t+=.025*speed*(reduce?.3:1);
+  spinA+=orbit?12*dt:(Math.round(spinA/360)*360-spinA)*.06;
+  spin.style.transform='rotateY('+spinA.toFixed(2)+'deg)';
+  tiltEl.style.transform='rotateZ('+tilt.toFixed(2)+'deg)';
+  /* read camera angle -> billboards, lighting */
+  var tr=getComputedStyle(scene).transform,m=tr&&tr!=='none'?new DOMMatrix(tr):new DOMMatrix();
+  var sy=Math.atan2(m.m31,m.m11),sx=Math.atan2(m.m23,m.m22),Y=sy+spinA/D;
+  spin.style.setProperty('--by',(-Y*D).toFixed(2)+'deg');spin.style.setProperty('--bx',(-sx*D).toFixed(2)+'deg');
+  var pc=Math.round((LE-LEVEL)/(LE-LF)*100);if(pc!==lastPc){lastPc=pc;pctEl.textContent=pc;}
+
+  /* liquid texture (seamless wrap) */
+  var Lt=LEVEL-50;tc.setTransform(2,0,0,2,0,0);tc.clearRect(0,0,TW,TH);
+  var g2=tc.createLinearGradient(0,Lt,0,TH);g2.addColorStop(0,'rgba(244,114,182,.45)');g2.addColorStop(1,'rgba(167,139,250,.5)');
+  tc.fillStyle=g2;tc.beginPath();tc.moveTo(0,TH);for(var x=0;x<=TW;x+=8)tc.lineTo(x,wv(Lt,x,t*.8,amp*.9,2)-4);tc.lineTo(TW,TH);tc.fill();
+  var g=tc.createLinearGradient(0,Lt,0,TH);g.addColorStop(0,'rgba(236,72,153,.72)');g.addColorStop(.5,'rgba(176,79,217,.68)');g.addColorStop(1,'rgba(139,92,246,.78)');
+  tc.fillStyle=g;tc.beginPath();tc.moveTo(0,TH);for(x=0;x<=TW;x+=8)tc.lineTo(x,wv(Lt,x,t,amp,0));tc.lineTo(TW,TH);tc.fill();
+  tc.strokeStyle='rgba(255,255,255,.6)';tc.lineWidth=2;tc.beginPath();for(x=0;x<=TW;x+=8){var yy=wv(Lt,x,t,amp,0);x?tc.lineTo(x,yy):tc.moveTo(x,yy);}tc.stroke();
+  for(var i=0;i<bub.length;i++){var bb=bub[i];bb.y-=bb.v*(.6+speed*.6);bb.x+=Math.sin(t*2*bb.w+bb.ph)*.25;
+    var top=wv(Lt,bb.x,t,amp,0);if(bb.y<top+2){bub[i]=mkb(false);continue;}
+    tc.globalAlpha=.7*Math.min(1,(bb.y-top)/45);tc.fillStyle='rgba(255,255,255,.14)';tc.strokeStyle='rgba(255,255,255,.85)';tc.lineWidth=1;
+    tc.beginPath();tc.arc(bb.x,bb.y,bb.r,0,TAU);tc.fill();tc.stroke();tc.fillStyle='#fff';tc.beginPath();tc.arc(bb.x-bb.r*.35,bb.y-bb.r*.35,bb.r*.28,0,TAU);tc.fill();}
+  tc.globalAlpha=1;
+  for(i=0;i<N;i++){lx[i].drawImage(tex,i*40,0,40,770,0,0,40,770);
+    var ai=i/N*TAU+Y,co=Math.cos(ai);
+    lc[i].style.opacity=(.72+.28*co).toFixed(2);
+    /* glass: fresnel rim + moving specular highlight */
+    var fr=Math.pow(1-Math.abs(co),2),sp=Math.pow(Math.max(0,Math.cos(ai+.6)),40),rim=Math.pow(Math.max(0,Math.cos(ai-1)),30);
+    var A=Math.min(.9,.03+.3*fr+.75*sp+.25*rim);
+    strips[i].style.background='linear-gradient(rgba(255,255,255,'+A.toFixed(3)+'),rgba(255,255,255,'+(A*.35).toFixed(3)+'))';}
+  surf.style.transform='translateY('+(LEVEL-50)+'px) rotateX(90deg) scale('+(Rr(LEVEL)*.97/108)+')';
+
+  /* belt */
+  curW+=((hov?.4:.8)*(reduce?.3:1)-curW)*.05;rot-=curW*dt;glowK+=((hov?1:0)-glowK)*.08;
+  for(i=0;i<letters.length;i++){var lt=letters[i],th=lt.i/txt.length*TAU+rot,c2=Math.cos(th+Y),s2=Math.sin(th+Y);
+    lt.e.style.transform='rotateY('+(th*D).toFixed(1)+'deg) translateZ(91.8px)';
+    lt.e.style.opacity=(c2>0?.5+.4*c2+.1*glowK:.18).toFixed(2);
+    lt.e.style.textShadow=(-s2*2).toFixed(1)+'px 1.5px 3px rgba(40,0,80,'+(.3+.3*Math.max(0,c2)).toFixed(2)+')'+(glowK>.05?',0 0 '+(4+8*glowK).toFixed(1)+'px rgba(236,72,153,'+glowK.toFixed(2)+')':'');}
+
+  /* ice cubes */
+  ice.forEach(function(c,k){var iy=LEVEL+c.off+Math.sin(t*1.2+c.ph)*amp*.45;iy=Math.min(iy,426-c.s/2-(k%2)*6);
+    c.e.style.transform='translate3d('+(130+c.x)+'px,'+iy.toFixed(1)+'px,'+c.z+'px) rotateX('+((c.ph*20+t*18*(k%2?1:-1))%360).toFixed(1)+'deg) rotateY('+((c.ph*30+t*14)%360).toFixed(1)+'deg)';});
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+/* hover + scroll */
+function leave(){hov=false;tTilt=0;tSpeed=1;tAmp=7;}
+addEventListener('pointermove',function(e){var r=stage.getBoundingClientRect(),dx=(e.clientX-(r.left+r.width/2))/(r.width/2);
+  if(e.clientX>r.left-20&&e.clientX<r.right+20&&e.clientY>r.top-20&&e.clientY<r.bottom+20){hov=true;tTilt=Math.max(-1,Math.min(1,dx))*9;tSpeed=3.2;tAmp=13;}else leave();},{passive:true});
+stage.addEventListener('pointerleave',leave);
+addEventListener('pointerup',function(e){if(e.pointerType!=='mouse')setTimeout(leave,600);});
+var lastY=scrollY;function onScroll(){var y=scrollY,mx=Math.max(1,document.documentElement.scrollHeight-innerHeight);tLevel=LF+Math.min(1,y/mx)*(LE-LF);kick=Math.min(2.5,kick+Math.abs(y-lastY)*.03);lastY=y;}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* camera angle switcher */
+var V={front:'rotateX(0deg) rotateY(0deg) scale(1)',top:'rotateX(45deg) rotateY(-30deg) scale(.9)',angle:'rotateX(-15deg) rotateY(45deg) scale(1)',orbit:'rotateX(-12deg) rotateY(0deg) scale(.95)'};
+var btns=document.querySelectorAll('.vb');
+btns.forEach(function(b){b.addEventListener('click',function(){var v=b.dataset.view;orbit=v==='orbit';scene.style.transform=V[v];btns.forEach(function(o){o.classList.toggle('on',o===b);});});});
+})();
+</script>
+</body>
+</html>
